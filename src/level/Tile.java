@@ -3,6 +3,8 @@ package level;
 import graphics.Sprite;
 import graphics.SpriteSheet;
 
+import java.util.ArrayList;
+
 /**
  * Created by bubof on 09.07.2017.
  */
@@ -20,6 +22,18 @@ public class Tile {
     public static final Tile WATER_TILE = new Tile(Sprite.WATER_TILE,Tile.BLOCKED);
     public static final Tile TREE_TILE = new Tile(Sprite.TREE_TILE,Tile.BLOCKED);
     public static final Tile CUT_TREE_TILE = new Tile(Sprite.CUT_TREE_TILE,Tile.BLOCKED);
+
+    public static ArrayList<Tile> allTiles = new ArrayList<>();
+    static{
+        allTiles.add(GRASS_TILE);
+        allTiles.add(GRASS_TILE_2);
+        allTiles.add(VOID_TILE);
+        allTiles.add(SWAMP_TILE);
+        allTiles.add(COAST_TILE);
+        allTiles.add(WATER_TILE);
+        allTiles.add(TREE_TILE);
+        allTiles.add(CUT_TREE_TILE);
+    }
 
     private int type;
     private Sprite image;

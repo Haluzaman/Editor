@@ -4,16 +4,16 @@ import graphics.Sprite;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
-import java.awt.image.ImageObserver;
-import java.awt.image.ImageProducer;
-import java.awt.image.WritableRaster;
-import java.io.IOException;
 
 /**
  * Created by bubof on 03.09.2017.
  */
 public class EditorOptions extends JPanel{
+
+    JLabel imageLabel;
+    ImageIcon icon;
 
     public EditorOptions(){
         initGUI();
@@ -26,9 +26,31 @@ public class EditorOptions extends JPanel{
 
         gbc.gridx = 0;
         gbc.gridy = 0;
-        JLabel imageLabel = new JLabel();
+        imageLabel = new JLabel();
         imageLabel.setName("imageLabel");
-        //TODO: make method for this shit, CJ!!!!!
+        this.add(imageLabel,gbc);
+        setImageLabelIcon();
+
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        JTabbedPane tabbedPane = new JTabbedPane();
+        JPanel panel1 = new TilesPanel();
+//        panel1.setPreferredSize(new Dimension(400,500));
+        panel1.add(new JLabel("1"));
+        tabbedPane.addTab("TILES",panel1);
+        tabbedPane.setMnemonicAt(0, KeyEvent.VK_1);
+
+
+        JPanel panel2 = new JPanel();
+        tabbedPane.addTab("CREATURES",panel2);
+//        panel2.setPreferredSize(new Dimension(300,200));
+        panel2.add(new JLabel("2"));
+        tabbedPane.setMnemonicAt(1, KeyEvent.VK_2);
+        this.add(tabbedPane,gbc);
+    }
+
+    /** Adds image into JLabel after click on Image of Tile -> it is supposed to show current chosen tile*/
+    public void setImageLabelIcon(){
         BufferedImage image = new BufferedImage(16*5,16*5,BufferedImage.TYPE_INT_ARGB);
         int pix[] = graphics.Graphics.scaleImage(Sprite.COAST_TILE.getPixels(),16,16,16*5,16*5);
         int width = Sprite.COAST_TILE.getWidth();
@@ -38,8 +60,7 @@ public class EditorOptions extends JPanel{
                 image.setRGB(x,y,pix[x+y*(width*5)]);
             }
         }
-        ImageIcon icon = new ImageIcon(image);
+        icon = new ImageIcon(image);
         imageLabel.setIcon(icon);
-        this.add(imageLabel,gbc);
     }
 }
