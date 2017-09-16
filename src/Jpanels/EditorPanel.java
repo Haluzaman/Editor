@@ -4,7 +4,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.util.ArrayList;
 
 /**
@@ -16,8 +15,6 @@ public class EditorPanel extends JPanel{
     public static final int EDITOR_OPTIONS_INDEX = 1;
 
     private MainPanel mp;
-//    private JPanel editor;
-//    private JPanel options;
     private ArrayList<JPanel> childPanels;
 
     public static final int WIDTH = 320;
@@ -32,7 +29,6 @@ public class EditorPanel extends JPanel{
 
     public void init(){
         childPanels = new ArrayList<>();
-
         JPanel editor = new Editor();
         editor.setPreferredSize(new Dimension(WIDTH*SCALE,HEIGHT*SCALE));
         editor.setSize(new Dimension(WIDTH*SCALE,HEIGHT*SCALE));
@@ -66,12 +62,13 @@ public class EditorPanel extends JPanel{
                 ((Editor)childPanels.get(EDITOR_INDEX)).keyPressed(KeyEvent.VK_DOWN);
             }
         });
-        JPanel options = new EditorOptions();
+        JPanel options = new EditorOptions(this);
         options.setPreferredSize(new Dimension((MainPanel.WIDTH) - editor.getWidth(),MainPanel.HEIGHT));
         options.setSize(new Dimension((MainPanel.WIDTH) - editor.getWidth(),MainPanel.HEIGHT));
         childPanels.add(options);
         this.add(childPanels.get(EDITOR_INDEX));
         this.add(childPanels.get(EDITOR_OPTIONS_INDEX));
+        ((EditorOptions)options).initListener();
     }
 
     public JPanel getChild(int index){

@@ -1,5 +1,7 @@
 package config;
 
+import level.Tile;
+
 /**
  * Created by bubof on 30.08.2017.
  */
@@ -22,6 +24,8 @@ public class CONFIG {
     public static double FRICTION = 0.6;
 
     public static double GRAVITY = 0.6;
+
+    public static Tile CURRENT_TILE = Tile.allTiles.get(0);
 
     public static void computeByteSizes(){
         TILE_WIDTH_BYTE = (int)Math.sqrt(TILE_WIDTH);

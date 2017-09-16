@@ -6,7 +6,6 @@ import level.Level;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
 
@@ -34,6 +33,7 @@ public class Editor extends JPanel implements Runnable{
         requestFocus();
         requestFocusInWindow();
         init();
+
     }
 
     public void init(){

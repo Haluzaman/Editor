@@ -1,10 +1,15 @@
 package Jpanels;
 
+import Listeners.EditorOptionsListener;
 import graphics.Sprite;
 
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 
 /**
@@ -12,12 +17,18 @@ import java.awt.image.BufferedImage;
  */
 public class EditorOptions extends JPanel{
     private static String[] availableTilesets = {"TEST-1","TEST-2","TEST-3"};
-    JLabel imageLabel;
-    ImageIcon icon;
+    private JLabel imageLabel;
+    private ImageIcon icon;
 
-    JComboBox tileSetList;
+    private JComboBox tileSetList;
+    private EditorOptionsListener editorOptionsListener;
 
-    public EditorOptions(){
+    private EditorPanel parentPanel;
+
+    public EditorOptions(EditorPanel parentPanel){
+        this.parentPanel = parentPanel;
+        editorOptionsListener = new EditorOptionsListener(parentPanel);
+        this.addMouseListener(editorOptionsListener);
         initGUI();
     }
 
@@ -42,6 +53,33 @@ public class EditorOptions extends JPanel{
         gbc.gridy = 2;
         JTabbedPane tabbedPane = new JTabbedPane();
         JPanel panel1 = new TilesPanel();
+        //TODO: for selecting right tile -> do function
+        panel1.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                System.out.println(e.getSource() + "great!");
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+
+            }
+        });
         tabbedPane.addTab("TILES",panel1);
         tabbedPane.setMnemonicAt(0, KeyEvent.VK_1);
 
@@ -49,6 +87,20 @@ public class EditorOptions extends JPanel{
         JPanel panel2 = new JPanel();
         tabbedPane.addTab("CREATURES",panel2);
         tabbedPane.setMnemonicAt(1, KeyEvent.VK_2);
+        //TODO: for changing tabs -> do function
+        tabbedPane.addChangeListener(new ChangeListener() { //add the Listener
+
+            public void stateChanged(ChangeEvent e) {
+
+                System.out.println(""+tabbedPane.getSelectedIndex());
+
+                if(tabbedPane.getSelectedIndex()==0) //Index starts at 0, so Index 2 = Tab3
+                {
+                    //do your stuff on Tab 3
+                    System.out.println("ssadasdasdasd");
+                }
+            }
+        });
         this.add(tabbedPane,gbc);
     }
 
@@ -65,5 +117,9 @@ public class EditorOptions extends JPanel{
         }
         icon = new ImageIcon(image);
         imageLabel.setIcon(icon);
+    }
+
+    public void initListener(){
+        editorOptionsListener.initListener();
     }
 }
