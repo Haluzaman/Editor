@@ -28,21 +28,24 @@ public class TilesPanel extends JPanel{
 
     private void initGUI(){
         int size = availableTiles.size();
-        //TODO: opravit tento vypocet v cykle
-        for(int y = 0;y < (size/5);y++){
-            for(int x = 0;x < size-(size%5);x++){
-                JLabel label = new JLabel();
-                setImageLabelIcon(label,availableTiles.get(5*y + x));
-                gbc.gridx = x;
-                gbc.gridy = y;
-                this.add(label,gbc);
+        int ypos = 0;
+        int xpos = 0;
+        for(int y = 0;y < size;y++){
+            if(y > 0 && y%5 == 0) {
+                ypos++;
+                xpos=0;
             }
+                JLabel label = new JLabel();
+                setImageLabelIcon(label,availableTiles.get(y));
+                gbc.gridx = xpos++;
+                gbc.gridy = ypos;
+                this.add(label,gbc);
         }
     }
 
     public void setImageLabelIcon(JLabel label,Tile currentTile){
         BufferedImage image = new BufferedImage(16*3,16*3,BufferedImage.TYPE_INT_ARGB);
-        int pix[] = graphics.Graphics.scaleImage(Sprite.COAST_TILE.getPixels(),16,16,16*3,16*3);
+        int pix[] = graphics.Graphics.scaleImage(currentTile.getSprite().getPixels(),16,16,16*3,16*3);
 //        int pix[] = currentTile.getSprite().getPixels();
         int width = currentTile.getSprite().getWidth();
         int height = currentTile.getSprite().getHeight();

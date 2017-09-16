@@ -64,6 +64,10 @@ public class Editor extends JPanel implements Runnable{
 
     public void drawToScreen(){
         Graphics g2 = getGraphics();
+        if(g2 == null) {
+            System.out.println("returning null");
+            return;
+        }
         g2.drawImage(image,0,0,EditorPanel.WIDTH*EditorPanel.SCALE,EditorPanel.HEIGHT*EditorPanel.SCALE,null);
         g2.dispose();
     }
@@ -82,7 +86,6 @@ public class Editor extends JPanel implements Runnable{
             update();
             draw();
             drawToScreen();
-
             elapsed = System.nanoTime() - start;
             wait = targetTime - elapsed / 1000000;
             if(wait < 0) wait = 5;
@@ -95,7 +98,6 @@ public class Editor extends JPanel implements Runnable{
     }
 
     public void keyPressed(int key){
-        System.out.println("sadasds");
         level.keyPressed(key);
     }
     public void keyReleased(KeyEvent k){

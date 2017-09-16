@@ -44,7 +44,6 @@ public class EditorPanel extends JPanel{
         am.put("UP", new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("up");
 //                editor.keyPressed(KeyEvent.VK_UP);
                 ((Editor)childPanels.get(EDITOR_INDEX)).keyPressed(KeyEvent.VK_UP);
             }
@@ -52,30 +51,24 @@ public class EditorPanel extends JPanel{
         im.put(KeyStroke.getKeyStroke(KeyEvent.VK_LEFT,0,false),"LEFT");
         am.put("LEFT",new AbstractAction(){
             public void actionPerformed(ActionEvent e) {
-                System.out.println("left");
                 ((Editor)childPanels.get(EDITOR_INDEX)).keyPressed(KeyEvent.VK_LEFT);
             }
         });
         im.put(KeyStroke.getKeyStroke(KeyEvent.VK_RIGHT,0,false),"RIGHT");
         am.put("RIGHT",new AbstractAction(){
             public void actionPerformed(ActionEvent e) {
-                System.out.println("right");
                 ((Editor)childPanels.get(EDITOR_INDEX)).keyPressed(KeyEvent.VK_RIGHT);
             }
         });
         im.put(KeyStroke.getKeyStroke(KeyEvent.VK_DOWN,0,false),"DOWN");
         am.put("DOWN",new AbstractAction(){
             public void actionPerformed(ActionEvent e) {
-                System.out.println("down");
                 ((Editor)childPanels.get(EDITOR_INDEX)).keyPressed(KeyEvent.VK_DOWN);
             }
         });
         JPanel options = new EditorOptions();
-        System.out.println(editor.getX() + " " + editor.getY() + " " + "editor width " + editor.getWidth() + " height " + editor.getHeight());
         options.setPreferredSize(new Dimension((MainPanel.WIDTH) - editor.getWidth(),MainPanel.HEIGHT));
         options.setSize(new Dimension((MainPanel.WIDTH) - editor.getWidth(),MainPanel.HEIGHT));
-        options.setBorder(BorderFactory.createLineBorder(Color.BLACK,2));
-        System.out.println(options.getX() + " " + options.getY() + " " + "opt width " + options.getWidth() + " height " + options.getHeight());
         childPanels.add(options);
         this.add(childPanels.get(EDITOR_INDEX));
         this.add(childPanels.get(EDITOR_OPTIONS_INDEX));

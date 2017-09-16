@@ -27,7 +27,6 @@ public class Tile {
     static{
         allTiles.add(GRASS_TILE);
         allTiles.add(GRASS_TILE_2);
-        allTiles.add(VOID_TILE);
         allTiles.add(SWAMP_TILE);
         allTiles.add(COAST_TILE);
         allTiles.add(WATER_TILE);
