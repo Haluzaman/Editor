@@ -1,5 +1,7 @@
 package Jpanels;
 
+import config.CONFIG;
+import graphics.ImageJLabel;
 import graphics.Sprite;
 import level.Tile;
 
@@ -35,7 +37,7 @@ public class TilesPanel extends JPanel{
                 ypos++;
                 xpos=0;
             }
-                JLabel label = new JLabel();
+                ImageJLabel label = new ImageJLabel(availableTiles.get(y));
                 setImageLabelIcon(label,availableTiles.get(y));
                 gbc.gridx = xpos++;
                 gbc.gridy = ypos;
@@ -44,14 +46,14 @@ public class TilesPanel extends JPanel{
     }
 
     public void setImageLabelIcon(JLabel label,Tile currentTile){
-        BufferedImage image = new BufferedImage(16*3,16*3,BufferedImage.TYPE_INT_ARGB);
-        int pix[] = graphics.Graphics.scaleImage(currentTile.getSprite().getPixels(),16,16,16*3,16*3);
+        BufferedImage image = new BufferedImage(16* CONFIG.SCALE_TILES_PANEL,16* CONFIG.SCALE_TILES_PANEL,BufferedImage.TYPE_INT_ARGB);
+        int pix[] = graphics.Graphics.scaleImage(currentTile.getSprite().getPixels(),16,16,16* CONFIG.SCALE_TILES_PANEL,16* CONFIG.SCALE_TILES_PANEL);
 //        int pix[] = currentTile.getSprite().getPixels();
         int width = currentTile.getSprite().getWidth();
         int height = currentTile.getSprite().getHeight();
-        for(int y = 0;y < height*3;y++){
-            for(int x = 0;x < width*3;x++){
-                image.setRGB(x,y,pix[x+y*width*3]);
+        for(int y = 0;y < height* CONFIG.SCALE_TILES_PANEL;y++){
+            for(int x = 0;x < width* CONFIG.SCALE_TILES_PANEL;x++){
+                image.setRGB(x,y,pix[x+y*width* CONFIG.SCALE_TILES_PANEL]);
             }
         }
         ImageIcon icon = new ImageIcon(image);

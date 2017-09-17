@@ -149,7 +149,16 @@ public class Level {
     }
 
 
+    public Screen getScreen(){
+        return this.screen;
+    }
 
+    public Map getMap(){
+        return this.map;
+    }
 
+    public void setTile(Tile tile,int col,int row){
+        map.setTile(tile,col,row);
+    }
 
 }

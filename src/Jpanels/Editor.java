@@ -1,5 +1,6 @@
 package Jpanels;
 
+import Listeners.EditorListener;
 import graphics.Screen;
 import level.Level;
 
@@ -24,6 +25,8 @@ public class Editor extends JPanel implements Runnable{
     private int[] pixels;
     private BufferedImage image;
 
+    private EditorListener editorListener;
+
     private Screen screen;
     private Level level;
     public Editor(){
@@ -44,6 +47,8 @@ public class Editor extends JPanel implements Runnable{
         isRunning = true;
         level = new Level(screen);
         System.out.println(isRunning);
+        editorListener = new EditorListener(this.level);
+        this.addMouseListener(editorListener);
         if(thread == null){
             thread = new Thread(this);
             thread.start();
@@ -105,5 +110,9 @@ public class Editor extends JPanel implements Runnable{
     }
     public void keyTyped(KeyEvent k){
         level.keyTyped(k.getKeyCode());
+    }
+
+    public Level getLevel(){
+        return this.level;
     }
 }

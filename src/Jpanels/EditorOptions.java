@@ -1,15 +1,13 @@
 package Jpanels;
 
 import Listeners.EditorOptionsListener;
+import Listeners.TabbedPaneListener;
+import config.CONFIG;
 import graphics.Sprite;
 
 import javax.swing.*;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.KeyEvent;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 
 /**
@@ -22,8 +20,10 @@ public class EditorOptions extends JPanel{
 
     private JComboBox tileSetList;
     private EditorOptionsListener editorOptionsListener;
+    private JTabbedPane tabbedPane;
 
     private EditorPanel parentPanel;
+    private TabbedPaneListener tabbedPaneListener;
 
     public EditorOptions(EditorPanel parentPanel){
         this.parentPanel = parentPanel;
@@ -47,39 +47,15 @@ public class EditorOptions extends JPanel{
         gbc.gridx = 0;
         gbc.gridy = 1;
         tileSetList = new JComboBox(availableTilesets);
+        tileSetList.setFocusable(false);
         this.add(tileSetList,gbc);
 
         gbc.gridx = 0;
         gbc.gridy = 2;
-        JTabbedPane tabbedPane = new JTabbedPane();
+        tabbedPane = new JTabbedPane();
         JPanel panel1 = new TilesPanel();
-        //TODO: for selecting right tile -> do function
-        panel1.addMouseListener(new MouseListener() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                System.out.println(e.getSource() + "great!");
-            }
-
-            @Override
-            public void mousePressed(MouseEvent e) {
-
-            }
-
-            @Override
-            public void mouseReleased(MouseEvent e) {
-
-            }
-
-            @Override
-            public void mouseEntered(MouseEvent e) {
-
-            }
-
-            @Override
-            public void mouseExited(MouseEvent e) {
-
-            }
-        });
+        tabbedPaneListener = new TabbedPaneListener(tabbedPane,this);
+        panel1.addMouseListener(tabbedPaneListener);
         tabbedPane.addTab("TILES",panel1);
         tabbedPane.setMnemonicAt(0, KeyEvent.VK_1);
 
@@ -87,32 +63,32 @@ public class EditorOptions extends JPanel{
         JPanel panel2 = new JPanel();
         tabbedPane.addTab("CREATURES",panel2);
         tabbedPane.setMnemonicAt(1, KeyEvent.VK_2);
-        //TODO: for changing tabs -> do function
-        tabbedPane.addChangeListener(new ChangeListener() { //add the Listener
-
-            public void stateChanged(ChangeEvent e) {
-
-                System.out.println(""+tabbedPane.getSelectedIndex());
-
-                if(tabbedPane.getSelectedIndex()==0) //Index starts at 0, so Index 2 = Tab3
-                {
-                    //do your stuff on Tab 3
-                    System.out.println("ssadasdasdasd");
-                }
-            }
-        });
+//        //TODO: for changing tabs -> do function
+//        tabbedPane.addChangeListener(new ChangeListener() { //add the Listener
+//
+//            public void stateChanged(ChangeEvent e) {
+//
+//                System.out.println(""+tabbedPane.getSelectedIndex());
+//
+//                if(tabbedPane.getSelectedIndex()==0) //Index starts at 0, so Index 2 = Tab3
+//                {
+//                    //do your stuff on Tab 3
+//                    System.out.println("ssadasdasdasd");
+//                }
+//            }
+//        });
         this.add(tabbedPane,gbc);
     }
 
     /** Adds image into JLabel after click on Image of Tile -> it is supposed to show current chosen tile*/
     public void setImageLabelIcon(){
-        BufferedImage image = new BufferedImage(16*5,16*5,BufferedImage.TYPE_INT_ARGB);
-        int pix[] = graphics.Graphics.scaleImage(Sprite.COAST_TILE.getPixels(),16,16,16*5,16*5);
-        int width = Sprite.COAST_TILE.getWidth();
-        int height = Sprite.COAST_TILE.getHeight();
-        for(int y = 0;y < height*5;y++){
-            for(int x = 0;x < width*5;x++){
-                image.setRGB(x,y,pix[x+y*(width*5)]);
+        BufferedImage image = new BufferedImage(16*CONFIG.SCALE_CURRENT_TILE_LABEL,16*CONFIG.SCALE_CURRENT_TILE_LABEL,BufferedImage.TYPE_INT_ARGB);
+        int pix[] = graphics.Graphics.scaleImage(CONFIG.CURRENT_TILE.getImage(),16,16,16*CONFIG.SCALE_CURRENT_TILE_LABEL,16*CONFIG.SCALE_CURRENT_TILE_LABEL);
+        int width = CONFIG.CURRENT_TILE.getSprite().getWidth();
+        int height = CONFIG.CURRENT_TILE.getSprite().getHeight();
+        for(int y = 0;y < height*CONFIG.SCALE_CURRENT_TILE_LABEL;y++){
+            for(int x = 0;x < width*CONFIG.SCALE_CURRENT_TILE_LABEL;x++){
+                image.setRGB(x,y,pix[x+y*(width*CONFIG.SCALE_CURRENT_TILE_LABEL)]);
             }
         }
         icon = new ImageIcon(image);
@@ -122,4 +98,9 @@ public class EditorOptions extends JPanel{
     public void initListener(){
         editorOptionsListener.initListener();
     }
+
+    public JPanel getSelectedPane(){
+        return (JPanel)this.tabbedPane.getSelectedComponent();
+    }
+
 }

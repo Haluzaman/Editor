@@ -27,6 +27,9 @@ public class CONFIG {
 
     public static Tile CURRENT_TILE = Tile.allTiles.get(0);
 
+    public static short SCALE_CURRENT_TILE_LABEL = 5;
+
+    public static short SCALE_TILES_PANEL = 3;
     public static void computeByteSizes(){
         TILE_WIDTH_BYTE = (int)Math.sqrt(TILE_WIDTH);
         TILE_HEIGHT_BYTE = (int)Math.sqrt(TILE_HEIGHT);

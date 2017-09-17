@@ -115,4 +115,8 @@ public class Map {
     public int getLevelHeight(){
         return this.LEVEL_HEIGHT;
     }
+
+    public void setTile(Tile tile,int col, int row){
+        this.tiles[col+row*this.LEVEL_WIDTH].setTileFromEditor(tile);
+    }
 }

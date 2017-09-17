@@ -18,7 +18,7 @@ public class EditorOptionsListener implements MouseListener{
     private Editor editor;
     private EditorOptions editorOptions;
     // if nothing on JPanel is found, then returning this, i dont have to bother with null pointer
-    private Component nonWorking = new JTextPane();
+    public static Component nonWorking = new JTextPane();
 
     public EditorOptionsListener(EditorPanel editorPanel){
         this.editorPanel = editorPanel;
